@@ -189,8 +189,9 @@ extension SoftwarePlaybackHost {
                 let dtsx = try DTSXObjectAudioDecoder()
                 // The detached task is the only user of the decoder until it returns.
                 nonisolated(unsafe) let verdictDecoder = dtsx
+                nonisolated(unsafe) let verdictDemuxer = dem
                 let verdict = await BlockingWork.detached(priority: .userInitiated) {
-                    HLSVideoEngine.dtsxVerdict(decoder: verdictDecoder, demuxer: dem, streamIndex: streamIndex)
+                    HLSVideoEngine.dtsxVerdict(decoder: verdictDecoder, demuxer: verdictDemuxer, streamIndex: streamIndex)
                 }.value
                 guard !stopRequested, !Task.isCancelled else { return nil }
                 guard case .renders(let presentation) = verdict else {
