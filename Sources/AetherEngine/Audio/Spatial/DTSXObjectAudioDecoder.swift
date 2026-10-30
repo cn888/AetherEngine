@@ -19,7 +19,7 @@ final class DTSXObjectAudioDecoder: ObjectAudioDecoding {
     }
 
     /// What the first frames of a stream showed (see `verdict(feeding:)`).
-    enum Verdict: Equatable {
+    enum Verdict: Equatable, Sendable {
         /// DTS:X the decoder renders, named by its layout ("7.1.4").
         case renders(String)
         /// Not DTS:X, or DTS:X in a presentation this decoder does not render; the message says which.
